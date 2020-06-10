@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/item'
 require './lib/vendor'
 require './lib/market'
@@ -12,6 +13,7 @@ class MarketTest < Minitest::Test
     @item2 = Item.new({name: 'Tomato', price: "$0.50"})
     @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
     @item4 = Item.new({name: "Banana Nice Cream", price: "$4.25"})
+    @item5 = Item.new({name: 'Onion', price: '$0.25'})
     @vendor1.stock(@item1, 35)
     @vendor1.stock(@item2, 7)
     @vendor2 = Vendor.new("Ba-Nom-a-Nom")
@@ -93,5 +95,22 @@ class MarketTest < Minitest::Test
     @market.add_vendor(@vendor3)
     sorted = ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"]
     assert_equal sorted, @market.sorted_item_list
+  end
+
+  def test_it_has_date
+    Date.stubs(:today).returns(Date.new(2020, 02, 24))
+    market = Market.new("South Pearl Street Farmers Market")
+    assert_equal "24/02/2020", market.date
+    # A market will now be created with a date -
+    # whatever date the market is created on through
+    # the use of `Date.today`. The addition of a
+    # date to the market should NOT break any previous
+    # tests.  The `date` method will return a string
+    # representation of the date - 'dd/mm/yyyy'. We
+    # want you to test this in with a date that is
+    # IN THE PAST. In order to test the date method
+    # in a way that will work today, tomorrow and on
+    # any date in the future, you will need to use a stub :)
+
   end
 end
