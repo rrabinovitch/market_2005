@@ -13,4 +13,12 @@ class Vendor
   def stock(item, amt)
     @inventory[item] += amt
   end
+
+  def potential_revenue #refactor later if time
+    rev = 0
+    @inventory.each do |item, amt|
+      rev += item.price * amt
+    end
+    rev
+  end
 end
