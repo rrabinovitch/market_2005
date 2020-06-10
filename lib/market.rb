@@ -46,4 +46,10 @@ class Market
       item.class == Item
     end
   end
+
+  def sorted_item_list
+    total_inventory.map do |item, _sub_hash|
+      item.name
+    end.sort
+  end
 end

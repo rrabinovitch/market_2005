@@ -86,8 +86,12 @@ class MarketTest < Minitest::Test
     assert_equal [@item1], @market.overstocked_items
   end
 
-
+  def test_it_can_sort_item_list
+    @vendor3.stock(@item3, 10)
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    sorted = ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"]
+    assert_equal sorted, @market.sorted_item_list
+  end
 end
-
-
-# Add a method to your Market class called sorted_item_list that returns a list of names of all items the Vendors have in stock, sorted alphabetically. This list should not include any duplicate items.
