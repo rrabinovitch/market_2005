@@ -37,4 +37,13 @@ class Market
       total_inventory
     end
   end
+
+  def overstocked_items # more refactoring needed...
+    items = total_inventory.find_all do |item, sub_hash|
+      sub_hash[:vendors].count > 1 && sub_hash[:quantity] > 50
+    end.flatten
+    items.find_all do |item|
+      item.class == Item
+    end
+  end
 end

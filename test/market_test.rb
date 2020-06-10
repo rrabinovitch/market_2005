@@ -77,23 +77,17 @@ class MarketTest < Minitest::Test
       }
     assert_equal inventory, @market.total_inventory
   end
+
+  def test_it_can_find_verstocked_items
+    @vendor3.stock(@item3, 10)
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    assert_equal [@item1], @market.overstocked_items
+  end
+
+
 end
 
 
-# total_inventory: reports quantities of all items sold at market
-# returns hash with
-# => keys = items
-# => values = hash
-  # => sub-hash should have
-    # => two key/value pairs: quantity pointing to total inventory for that item
-    # => vendors pointing to array of vendors that sell that item
-
-
-
-
-
-
-
 # Add a method to your Market class called sorted_item_list that returns a list of names of all items the Vendors have in stock, sorted alphabetically. This list should not include any duplicate items.
-
-# You Market will also be able to identify overstocked_items. An item is overstocked if it is sold by more than 1 vendor AND the total quantity is greater than 50.
